@@ -4,6 +4,8 @@ import ConversationThread from '@/components/ConversationThread';
 import ConversationView from '@/components/ConversationView';
 import Header from '@/components/Header';
 import conversationFakeArray from '@/components/conversationFakeArray';
+import UserGreetText from '@/components/UserGreetText';
+import LoginLogoutButton from '@/components/LoginLogoutButton';
 
 interface Message {
     id: string;
@@ -89,27 +91,28 @@ const Index = () => {
             <div className="container mx-auto px-4 py-6">
                 <Header />
 
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-
-                    <div className="lg:col-span-3">
-                        <div className="mb-4">
-                            <h2 className="font-pixel font-bold text-xl text-bg2 mb-2">
-                                Cole Cole Cole
-                            </h2>
-                            <div className="font-pixel text-sm text-bg2">
-                                Read ongoing letter exchanges between friends • Click any thread to join the conversation
-                            </div>
+                <div className="flex-col">
+                    <div className="mb-4">
+                        <div className='flex justify-between items-center w-full'>
+                            <UserGreetText />
+                            <LoginLogoutButton />
                         </div>
-
-                        <div className="space-y-4">
-                            {conversations.map((conversation) => (
-                                <ConversationThread
-                                    key={conversation.id}
-                                    {...conversation}
-                                    onClick={() => setSelectedConversation(conversation.id)}
-                                />
-                            ))}
+                        <h2 className="font-pixel font-bold text-xl text-bg2 mb-2">
+                            Correspondence
+                        </h2>
+                        <div className="font-pixel text-sm text-bg2">
+                            Read ongoing letter exchanges between friends • Click any thread to join the conversation
                         </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        {conversations.map((conversation) => (
+                            <ConversationThread
+                                key={conversation.id}
+                                {...conversation}
+                                onClick={() => setSelectedConversation(conversation.id)}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>

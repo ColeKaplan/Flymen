@@ -12,7 +12,7 @@ const Header: React.FC = () => {
         </div>
         <div className="flex justify-center space-x-3 text-xs font-pixel text-gray-600">
           <span className="">•</span>
-          <span>read ongoing conversations between friends</span>
+          <span>open the curtain on conversations</span>
           <span className="">•</span>
         </div>
       </div>
