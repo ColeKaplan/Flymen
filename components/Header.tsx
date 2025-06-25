@@ -3,7 +3,7 @@ import React from 'react';
 const Header: React.FC = () => {
   return (
     <div className="text-center mb-8">
-      <div className="inline-block bg-[#fff5db] rounded border border-gray-300 retro-shadow p-5">
+      <div className="inline-block bg-bg2 rounded border-gray-300 retro-shadow p-5">
         <h1 className="font-pixel text-2xl font-bold text-gray-800 mb-2">
           Flymen
         </h1>

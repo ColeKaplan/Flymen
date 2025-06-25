@@ -32,7 +32,7 @@ const ConversationThread: React.FC<ConversationThreadProps> = ({
   return (
     <div 
       onClick={onClick}
-      className="bg-white/95 rounded border border-gray-300 retro-shadow p-4 mb-4 cursor-pointer hover:bg-gray-50/95 transition-colors"
+      className="bg-bg2 rounded border-gray-300 p-4 mb-4 cursor-pointer hover:bg-bg3"
     >
       <div className="flex justify-between items-start mb-2">
         <h3 className="font-pixel font-bold text-lg text-gray-800">
