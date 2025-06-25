@@ -21,7 +21,7 @@ const LoginButton = () => {
   if (user) {
     return (
       <Button
-        className="text-black bg-bg3 hover:bg-bg2"
+        className="text-black bg-bg2 hover:bg-bg3"
         onClick={() => {
           signout();
           setUser(null);
@@ -33,7 +33,7 @@ const LoginButton = () => {
   }
   return (
     <Button
-      className="text-black bg-bg3 hover:bg-bg2"
+      className="text-black bg-bg2 hover:bg-bg3"
       onClick={() => {
         router.push("/login");
       }}
