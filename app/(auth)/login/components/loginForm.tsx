@@ -80,7 +80,7 @@ export function LoginForm() {
               {isPending ? "Logging in..." : "Login"}
             </Button>
 
-            <SignInWithGoogleButton />
+            {/* <SignInWithGoogleButton /> */}
           </div>
         </form>
         <div className="mt-4 text-center text-sm">
