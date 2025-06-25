@@ -1,0 +1,11 @@
+@media (min-width: 850px) {
+    .my-md\:block {
+        display: block;
+    }
+}
+
+@media (min-width: 850px) {
+    .my-md\:hidden {
+        display: none;
+    }
+}
