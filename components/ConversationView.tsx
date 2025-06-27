@@ -1,23 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Heart, MessageCircle } from 'lucide-react';
 
-interface Message {
-  id: string;
-  user: string;
-  content: string;
-  timestamp: string;
-  isLeft: boolean;
-  avatar: string;
-  comments: Comment[];
-}
-
-interface Comment {
-  id: string;
-  user: string;
-  content: string;
-  timestamp: string;
-  avatar: string;
-}
 
 interface ConversationViewProps {
   title: string;
