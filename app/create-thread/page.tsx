@@ -10,10 +10,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import ThreadTitle from "./components/threadTitle";
+import PostMarkdown from "./components/postMarkdown";
 
 export async function uploadThread(formData: FormData) {
     const supabase = createClient();
-    const {data, error} = await supabase.from("usernames").select("username");
+    const { data, error } = await supabase.from("usernames").select("username");
     if (error) {
         return { error: "Failed to upload thread." };
     }
@@ -75,6 +76,9 @@ const createThread = () => {
                 <CardContent className="flex flex-row justify-between">
                     <ThreadTitle suggestions={usernames} />
                     <SearchInput suggestions={usernames} />
+                </CardContent>
+                <CardContent>
+                    <PostMarkdown />
                 </CardContent>
             </Card>
         </div>
