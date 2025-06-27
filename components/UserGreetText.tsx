@@ -2,7 +2,11 @@
 import { createClient } from "@/utils/supabase/client";
 import React, { useEffect, useState } from "react";
 
-const UserGreetText = () => {
+type UserGreetTextProps = {
+  className?: string;
+};
+
+const UserGreetText = ({ className = "" }: UserGreetTextProps) => {
     const [user, setUser] = useState<any>(null);
     const supabase = createClient();
 
@@ -19,7 +23,7 @@ const UserGreetText = () => {
 
     if (user !== null) {
         return (
-            <p className="text-bg2">
+            <p className={`text-bg2 ${className}`}>
                 Welcome, {user}
             </p>
         );

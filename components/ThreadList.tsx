@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { MessageCircle, Calendar } from 'lucide-react';
 import { IThread } from '@/types/thread';
 
-interface ConversationThreadProps {
+interface ThreadListProps {
   threadData: IThread
   onClick: () => void;
 }
 
-const ConversationThread: React.FC<ConversationThreadProps> = ({
+const ThreadList: React.FC<ThreadListProps> = ({
   threadData,
   onClick
 }) => {
@@ -71,4 +71,4 @@ const ConversationThread: React.FC<ConversationThreadProps> = ({
   );
 };
 
-export default ConversationThread;
+export default ThreadList;

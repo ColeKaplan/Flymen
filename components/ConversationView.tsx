@@ -6,14 +6,14 @@ interface ConversationViewProps {
   title: string;
   participants: string[];
   onBack: () => void;
-  onAddComment: (messageId: string, comment: string) => void;
+  // onAddComment: (messageId: string, comment: string) => void;
 }
 
 const ConversationView: React.FC<ConversationViewProps> = ({
   title,
   participants,
   onBack,
-  onAddComment
+  // onAddComment
 }) => {
   const [expandedComments, setExpandedComments] = useState<string[]>([]);
   const [newComments, setNewComments] = useState<Record<string, string>>({});
@@ -30,7 +30,7 @@ const ConversationView: React.FC<ConversationViewProps> = ({
     e.preventDefault();
     const comment = newComments[messageId];
     if (comment?.trim()) {
-      onAddComment(messageId, comment.trim());
+      // onAddComment(messageId, comment.trim());
       setNewComments(prev => ({ ...prev, [messageId]: '' }));
     }
   };
