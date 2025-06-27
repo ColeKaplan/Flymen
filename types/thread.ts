@@ -9,4 +9,6 @@ export interface IThread {
     lastActivity: string;
     conversationCount: number;
     excerpt: string;
+    // username1: string;
+    // username2: string;
 }

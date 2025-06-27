@@ -23,8 +23,8 @@ const Index = () => {
             // First get the threads
             const { data: threadData, error: threadError } = await getThreads();
 
-            if (threadError) {
-                setError("Failed to fetch threads.");
+            if (threadError || !threadData) {
+                setError(threadError? threadError.message : "Failed to fetch threads.");
                 return;
             }
 
@@ -83,6 +83,7 @@ const Index = () => {
                             <UserGreetText />
                             <LoginLogoutButton />
                         </div>
+                        {error && <p className="text-red-500 text-sm">{error}</p>}
                         <h2 className="font-pixel font-bold text-xl text-bg2 mb-2">
                             Correspondence
                         </h2>

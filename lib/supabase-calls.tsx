@@ -60,4 +60,12 @@ export async function getUsernames() {
 export async function getThreads() {
     const supabase = createClient();
     return await supabase.from("threads").select("title, user1, user2, excerpt, conversationCount, id, createdAt, lastActivity");
+    // return {
+    //     data: data?.map(thread => ({
+    //         ...thread,
+    //         username1: thread.user1_user[0].display_name,
+    //         username2: thread.user2_user[0].display_name,
+    //     })),
+    //     error,
+    // };
 }
