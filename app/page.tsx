@@ -3,66 +3,53 @@ import React, { useEffect, useState } from 'react';
 import ConversationThread from '@/components/ConversationThread';
 import ConversationView from '@/components/ConversationView';
 import Header from '@/components/Header';
-import conversationFakeArray from '@/components/conversationFakeArray';
 import UserGreetText from '@/components/UserGreetText';
 import LoginLogoutButton from '@/components/LoginLogoutButton';
+import { IThread } from '@/types/thread';
+import { IComment } from '@/types/comment';
+import { IConversation } from '@/types/conversation';
+import { getThreads } from '@/lib/supabase-calls';
 
-interface Message {
-    id: string;
-    user: string;
-    content: string;
-    timestamp: string;
-    isLeft: boolean;
-    avatar: string;
-    comments: Comment[];
-}
-
-interface Comment {
-    id: string;
-    user: string;
-    content: string;
-    timestamp: string;
-    avatar: string;
-}
-
-interface Conversation {
-    id: string;
-    title: string;
-    participants: string[];
-    lastActivity: string;
-    messageCount: number;
-    excerpt: string;
-    messages: Message[];
-}
 
 const Index = () => {
-    const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
-    const [conversations, setConversations] = useState<Conversation[]>(conversationFakeArray);
+    const [error, setError] = useState<string | null>(null);
+    const [selectedThread, setSelectedThread] = useState<string | null>(null);
+    const [conversations, setConversations] = useState<IConversation[]>();
+    const [threads, setThreads] = useState<IThread[]>([]);
 
-    const handleAddComment = (messageId: string, commentText: string) => {
-        const newComment: Comment = {
-            id: Date.now().toString(),
-            user: 'anonymous_reader',
-            content: commentText,
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=32&h=32&fit=crop&crop=face'
+    useEffect(() => {
+        const fetchThreads = async () => {
+
+            // First get the threads
+            const { data: threadData, error: threadError } = await getThreads();
+
+            if (threadError) {
+                setError("Failed to fetch threads.");
+                return;
+            }
+
+            setThreads(threadData)
         };
 
-        setConversations(prev =>
-            prev.map(conv => ({
-                ...conv,
-                messages: conv.messages.map(msg =>
-                    msg.id === messageId
-                        ? { ...msg, comments: [...msg.comments, newComment] }
-                        : msg
-                )
-            }))
-        );
+        fetchThreads();
+    }, []);
+
+
+    const handleAddComment = (conversationId: string, commentText: string) => {
+        // Ignore this whole method for now, just a placeholder
+        const newComment: IComment = {
+            id: Date.now().toString(),
+            username: 'anonymous_reader',
+            content: commentText,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        };
+
+        // TODO: Upload to conversations database
     };
 
-    const selectedConv = conversations.find(conv => conv.id === selectedConversation);
+    const selectedThrd : IThread | undefined = threads.find(thrd => thrd.id === selectedThread);
 
-    if (selectedConversation && selectedConv) {
+    if (selectedThread && selectedThrd) {
         return (
             <div className="min-h-screen minimal-background">
                 <div className="container mx-auto px-4 py-6">
@@ -73,10 +60,9 @@ const Index = () => {
 
                         <div className="lg:col-span-3">
                             <ConversationView
-                                title={selectedConv.title}
-                                participants={selectedConv.participants}
-                                messages={selectedConv.messages}
-                                onBack={() => setSelectedConversation(null)}
+                                title={selectedThrd.title}
+                                participants={[selectedThrd.user1, selectedThrd.user2]}
+                                onBack={() => setSelectedThread(null)}
                                 onAddComment={handleAddComment}
                             />
                         </div>
@@ -106,11 +92,11 @@ const Index = () => {
                     </div>
 
                     <div className="space-y-4">
-                        {conversations.map((conversation) => (
+                        {threads.map((thread) => (
                             <ConversationThread
-                                key={conversation.id}
-                                {...conversation}
-                                onClick={() => setSelectedConversation(conversation.id)}
+                                key={thread.id}
+                                threadData={thread}
+                                onClick={() => setSelectedThread(thread.id)}
                             />
                         ))}
                     </div>

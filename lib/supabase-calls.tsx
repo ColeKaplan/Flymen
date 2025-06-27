@@ -24,15 +24,15 @@ export async function uploadThread(title: string, friend: string, markdownConten
     // 2. Look up user2 id by username (friend)
     const { data: friendData, error: friendError } = await supabase
         .from("usernames")
-        .select("user_id")
+        .select("userID")
         .eq("username", friend)
         .single();
 
     if (friendError || !friendData) {
-        return new Error(friendError?.message || "Cole Friend username not found");
+        return new Error("Friend username not found");
     }
 
-    const friendUserId = friendData.user_id;
+    const friendUserId = friendData.userID;
 
     // 3. Insert new thread row
     const { error: insertError } = await supabase.from("threads").insert({
@@ -55,4 +55,9 @@ export async function uploadThread(title: string, friend: string, markdownConten
 export async function getUsernames() {
     const supabase = createClient();
     return await supabase.from("usernames").select("username");
+}
+
+export async function getThreads() {
+    const supabase = createClient();
+    return await supabase.from("threads").select("title, user1, user2, excerpt, conversationCount, id, createdAt, lastActivity");
 }
