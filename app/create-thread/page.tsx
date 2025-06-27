@@ -9,6 +9,7 @@ import { createClient } from "@/utils/supabase/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import ThreadTitle from "./components/threadTitle";
 
 export async function uploadThread(formData: FormData) {
     const supabase = createClient();
@@ -71,7 +72,8 @@ const createThread = () => {
                         Write the first post in your new thread
                     </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex flex-row justify-between">
+                    <ThreadTitle suggestions={usernames} />
                     <SearchInput suggestions={usernames} />
                 </CardContent>
             </Card>
