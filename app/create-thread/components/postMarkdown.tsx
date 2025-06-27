@@ -25,7 +25,8 @@ export default function PostMarkdown() {
         <TextField
           multiline
           fullWidth
-          minRows={6}
+          minRows={12}
+          maxRows={12}
           variant="outlined"
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -35,10 +36,12 @@ export default function PostMarkdown() {
           variant="outlined"
           sx={{
             p: 2,
-            minHeight: '150px',
+            minHeight: '300px',
+            maxHeight: '300px',
             backgroundColor: '#f8f8f8',
             whiteSpace: 'pre-wrap',
             overflowWrap: 'break-word',
+            overflow: 'auto',
           }}
         >
           <ReactMarkdown>{content || "*Type something in markdown to see what your post will look like*"}</ReactMarkdown>
