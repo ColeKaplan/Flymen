@@ -3,12 +3,12 @@ import { IConversation } from "./conversation";
 export interface IThread {
     id: string;
     title: string;
-    user1: string;
-    user2: string;
-    createdAt: string;
-    lastActivity: string;
-    conversationCount: number;
+    user_1: string;
+    user_2: string;
+    created_at: string;
+    last_activity: string;
+    conversation_count: number;
     excerpt: string;
-    // username1: string;
-    // username2: string;
+    username_1: string;
+    username_2: string;
 }

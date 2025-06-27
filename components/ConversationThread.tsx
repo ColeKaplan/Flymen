@@ -31,12 +31,12 @@ const ConversationThread: React.FC<ConversationThreadProps> = ({
         </h3>
         <div className="flex items-center text-xs font-pixel text-gray-500">
           <Calendar className="w-3 h-3 mr-1" />
-          {threadData.lastActivity}
+          {threadData.last_activity}
         </div>
       </div>
       
       <div className="font-pixel text-sm text-gray-600 mb-2">
-        Between {threadData.user1} & {threadData.user2}
+        Between {threadData.username_1} & {threadData.username_2}
       </div>
       
       <div className="text-sm text-gray-700 mb-3 leading-relaxed">
@@ -46,7 +46,7 @@ const ConversationThread: React.FC<ConversationThreadProps> = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center text-xs font-pixel text-gray-500">
           <MessageCircle className="w-3 h-3 mr-1" />
-          {threadData.conversationCount} letters
+          {threadData.conversation_count} letters
         </div>
         <button className="retro-button px-3 py-1 font-pixel text-xs rounded">
           Read Thread →

@@ -37,7 +37,7 @@ export async function signup(formData: FormData) {
 
     // Ideally should validate these inputs instead of type-casting
     const username = formData.get("username") as string;
-    const email = `${randomString(5)}@example.com`;
+    const email = `${randomString(10)}@example.com`;
     const password = formData.get("password") as string
 
     // Check if username is already taken
@@ -88,7 +88,7 @@ export async function signup(formData: FormData) {
 
 function randomString(length: number) {
     const chars =
-        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        "0123456789abcdefghijklmnopqrstuvwxyz";
     let result = "";
     for (let i = length; i > 0; --i) {
         result += chars[Math.floor(Math.random() * chars.length)];

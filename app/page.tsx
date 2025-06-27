@@ -61,7 +61,7 @@ const Index = () => {
                         <div className="lg:col-span-3">
                             <ConversationView
                                 title={selectedThrd.title}
-                                participants={[selectedThrd.user1, selectedThrd.user2]}
+                                participants={[selectedThrd.user_1, selectedThrd.user_2]}
                                 onBack={() => setSelectedThread(null)}
                                 onAddComment={handleAddComment}
                             />
