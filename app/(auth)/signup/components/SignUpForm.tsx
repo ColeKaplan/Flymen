@@ -1,5 +1,6 @@
+"use client";
+import { useState, useTransition } from "react";
 import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,8 +14,27 @@ import { Label } from "@/components/ui/label";
 import { signup } from "@/lib/auth-actions";
 
 export function SignUpForm() {
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault(); // prevent normal form submission
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+
+    startTransition(async () => {
+      const result = await signup(formData);
+
+      if (result?.error) {
+        setError(result.error);
+      }
+      // If no error, login() will redirect internally
+    });
+  }
+
   return (
-    <Card className="mx-auto max-w-sm bg-bg2">
+    <Card className="mx-4 w-[22rem] max-w-sm bg-bg2">
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
@@ -22,7 +42,7 @@ export function SignUpForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form action="">
+       <form onSubmit={handleSubmit}>
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="username">Username</Label>
@@ -34,7 +54,8 @@ export function SignUpForm() {
                 required
               />
             </div>
-            <div className="grid gap-2">
+            {/* I got rid of the below email class so it would be username based sign ups */}
+            {/* <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 name="email"
@@ -43,12 +64,15 @@ export function SignUpForm() {
                 placeholder="flymen@example.com"
                 required
               />
-            </div>
+            </div> */}
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
               <Input name="password" id="password" type="password" />
             </div>
-            <Button formAction={signup} type="submit" className="w-full bg-bg3 hover:bg-bg1">
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
+            <Button type="submit" className="w-full bg-bg3 hover:bg-bg1">
               Create an account
             </Button>
           </div>

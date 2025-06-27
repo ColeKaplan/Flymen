@@ -37,17 +37,28 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="mx-auto max-w-sm bg-bg2">
+    <Card className="max-w-sm w-[22rem] bg-bg2 mx-4">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Enter your username and password to log in
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4">
             <div className="grid gap-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                name="username"
+                id="username"
+                type="username"
+                placeholder="colewawa"
+                required
+              />
+            </div>
+            {/* No more email */}
+            {/* <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -56,16 +67,17 @@ export function LoginForm() {
                 placeholder="flymen@example.com"
                 required
               />
-            </div>
+            </div> */}
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
-                <Link
+                {/* TODO: Implement Forgot Your Password */}
+                {/* <Link
                   href="#"
                   className="ml-auto inline-block text-sm underline"
                 >
                   Forgot your password?
-                </Link>
+                </Link> */}
               </div>
               <Input id="password" name="password" type="password" required />
             </div>

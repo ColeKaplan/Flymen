@@ -8,14 +8,21 @@ import { createClient } from "@/utils/supabase/server";
 export async function login(formData: FormData) {
     const supabase = createClient();
 
-    // type-casting here for convenience
-    // in practice, you should validate your inputs
-    const data = {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
-    };
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string
 
-    const { error } = await supabase.auth.signInWithPassword(data);
+    const response = await supabase.functions.invoke("get-fake-email", {
+        body: { username },
+    });
+
+    if (response.error) {
+        return { error: "Incorrect username or password" };
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: response.data.email,
+        password,
+    });
 
     if (error) {
         return { error: error.message };
@@ -28,28 +35,65 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
     const supabase = createClient();
 
-    // type-casting here for convenience
-    // in practice, you should validate your inputs
+    // Ideally should validate these inputs instead of type-casting
     const username = formData.get("username") as string;
-    const data = {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
+    const email = `${randomString(5)}@example.com`;
+    const password = formData.get("password") as string
+
+    // Check if username is already taken
+    const { data: existing, error: checkError } = await supabase
+        .from("usernames")
+        .select("id")
+        .eq("username", username)
+        .maybeSingle();
+
+    if (checkError) {
+        return { error: "Failed to check username availability." };
+    }
+
+    if (existing) {
+        return { error: "Username is already taken." };
+    }
+
+    // Create the user
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
         options: {
             data: {
-                full_name: `${username}`,
-                email: formData.get("email") as string,
+                display_name: username,
             },
         },
-    };
-
-    const { error } = await supabase.auth.signUp(data);
+    });
 
     if (error) {
-        redirect("/error");
+        return { error: error.message };
+    }
+
+    // Add the new username
+    if (!!data.user) {
+        const { error: insertError } = await supabase
+            .from("usernames")
+            .insert([{ username, user_id: data.user.id }]);
+
+        if (insertError) {
+            console.log(insertError);
+            return { error: "Failed to save username." };
+        }
     }
 
     revalidatePath("/", "layout");
     redirect("/");
+}
+
+function randomString(length: number) {
+    const chars =
+        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let result = "";
+    for (let i = length; i > 0; --i) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return result;
 }
 
 export async function signout() {

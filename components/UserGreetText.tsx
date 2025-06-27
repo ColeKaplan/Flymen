@@ -5,22 +5,26 @@ import React, { useEffect, useState } from "react";
 const UserGreetText = () => {
     const [user, setUser] = useState<any>(null);
     const supabase = createClient();
+
     useEffect(() => {
         const fetchUser = async () => {
             const {
                 data: { user },
             } = await supabase.auth.getUser();
-            setUser(user);
+
+            setUser(user?.user_metadata?.display_name ?? "mysterious visitor");
         };
         fetchUser();
     }, []);
+
     if (user !== null) {
         return (
             <p className="text-bg2">
-                Welcome, {user?.user_metadata?.full_name ?? "user"}
+                Welcome, {user}
             </p>
         );
     }
+
     return (
         <p className="text-bg2">
             User not logged in
