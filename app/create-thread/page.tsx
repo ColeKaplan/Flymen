@@ -11,27 +11,16 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import ThreadTitle from "./components/threadTitle";
 import PostMarkdown from "./components/postMarkdown";
-
-export async function uploadThread(formData: FormData) {
-    const supabase = createClient();
-    const { data, error } = await supabase.from("usernames").select("username");
-    if (error) {
-        return { error: "Failed to upload thread." };
-    }
-
-    revalidatePath("/", "layout");
-    redirect("/");
-}
-
-async function getUsernames() {
-    const supabase = createClient();
-    return await supabase.from("usernames").select("username");
-}
+import { uploadThread, getUsernames } from "@/lib/supabase-calls";
 
 const createThread = () => {
     const [error, setError] = useState<string | null>(null);
     const [isPending, startTransition] = useTransition();
     const [usernames, setUsernames] = useState<string[]>([]);
+
+    const [titleInput, setTitleInput] = useState("");
+    const [friendInput, setFriendInput] = useState("");
+    const [markdownContent, setMarkdownContent] = useState("");
 
     useEffect(() => {
         const fetchUsernames = async () => {
@@ -48,19 +37,32 @@ const createThread = () => {
         fetchUsernames();
     }, []);
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault(); // prevent normal form submission
+    async function handleSubmit() {
         setError(null);
 
-        const formData = new FormData(e.currentTarget);
+        if (titleInput.trim() === "") {
+            setError("Title cannot be empty.");
+            return;
+        }
+        if (friendInput.trim() === "") {
+            setError("Recipient cannot be empty.");
+            return;
+        }
+        if (markdownContent.trim() === "") {
+            setError("Post cannot be empty.");
+            return;
+        }
 
         startTransition(async () => {
-            const result = await uploadThread(formData);
+            const result = await uploadThread(titleInput, friendInput, markdownContent);
 
-            if (result?.error) {
-                setError(result.error);
+            if (result?.message) {
+                setError(result.message);
+            } else {
+                localStorage.removeItem('createThreadTitle');
+                localStorage.removeItem('friendRecipient');
+                localStorage.removeItem('markdownContent');
             }
-            // If no error, login() will redirect internally
         });
     }
 
@@ -74,11 +76,25 @@ const createThread = () => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-row justify-between">
-                    <ThreadTitle suggestions={usernames} />
-                    <SearchInput suggestions={usernames} />
+                    <ThreadTitle input={titleInput} setInput={setTitleInput} />
+                    <SearchInput suggestions={usernames} input={friendInput} setInput={setFriendInput} />
                 </CardContent>
                 <CardContent>
-                    <PostMarkdown />
+                    <PostMarkdown content={markdownContent} setContent={setMarkdownContent} />
+                </CardContent>
+                <CardContent>
+                    {error && (
+                        <div className="text-red-500 text-sm">
+                            {error}
+                        </div>
+                    )}
+                    <Button
+                        onClick={handleSubmit}
+                        className="w-full bg-bg3 hover:bg-bg1 mb-2"
+                        disabled={isPending}
+                    >
+                        {isPending ? "Creating..." : "Create"}
+                    </Button>
                 </CardContent>
             </Card>
         </div>

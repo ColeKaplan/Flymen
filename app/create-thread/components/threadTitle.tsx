@@ -1,32 +1,31 @@
 import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import { Box, TextField, List, ListItem, ListItemButton } from "@mui/material";
-import { useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { Box, TextField } from "@mui/material";
+import { useEffect } from 'react';
 
-type SearchInputProps = {
-  suggestions: string[];
-};
-
-export default function ThreadTitle({ suggestions }: SearchInputProps) {
-
-  const [input, setInput] = useState("");
+export default function ThreadTitle({ input , setInput }: {input: string; setInput: (value: string) => void }) {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setInput(value);
   };
 
-  const handleSelect = (word: string) => {
-    setInput(word);
-  };
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedTitle = localStorage.getItem('createThreadTitle');
+    if (savedTitle) setInput(savedTitle);
+  }, []);
+
+  // Save to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('createThreadTitle', input);
+  }, [input]);
 
   return (
     <Box className="" sx={{ width: "400px", position: "relative" }}>
       <TextField
         fullWidth
         label="Topic"
-        variant="standard"
+        variant="filled"
         value={input}
         onChange={handleChange}
         autoComplete="off"

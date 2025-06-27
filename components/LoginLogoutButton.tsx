@@ -24,6 +24,7 @@ const LoginButton = () => {
         className="text-black bg-bg2 hover:bg-bg3"
         onClick={() => {
           signout();
+          localStorage.clear();
           setUser(null);
         }}
       >

@@ -1,16 +1,10 @@
 import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import { Box, TextField, List, ListItem, ListItemButton } from "@mui/material";
-import { useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { Box, List, ListItem, ListItemButton, TextField } from "@mui/material";
+import { useEffect, useState } from 'react';
 
-type SearchInputProps = {
-  suggestions: string[];
-};
 
-export default function SearchInput({ suggestions }: SearchInputProps) {
+export default function SearchInput({ suggestions, input , setInput }: {suggestions: string[], input: string; setInput: (value: string) => void }) {
 
-  const [input, setInput] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -29,24 +23,34 @@ export default function SearchInput({ suggestions }: SearchInputProps) {
     setFilteredSuggestions([]);
   };
 
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedFriend = localStorage.getItem('friendRecipient');
+    if (savedFriend) setInput(savedFriend);
+  }, []);
+
+  // Save to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('friendRecipient', input);
+  }, [input]);
+
   return (
     <Box className="" sx={{ width: "200px", position: "relative" }}>
-      <TextField
-        fullWidth
-        label="Recipient"
-        variant="standard"
-        value={input}
-        onChange={handleChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setTimeout(() => setIsFocused(false), 100)}
-        autoComplete="off"
-      />
-      {filteredSuggestions.length > 0 && isFocused &&(
-        <List
+        <TextField
+          fullWidth
+          label="Recipient"
+          variant="filled"
+          value={input}
+          onChange={handleChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setTimeout(() => setIsFocused(false), 100)}
+          autoComplete="off"
+        />
+      {filteredSuggestions.length > 0 && isFocused && (
+        <List className='bg-bg3'
           sx={{
             position: "absolute",
             zIndex: 1,
-            background: "white",
             border: "1px solid #ccc",
             borderRadius: "4px",
             maxHeight: "200px",
@@ -56,7 +60,7 @@ export default function SearchInput({ suggestions }: SearchInputProps) {
           }}
         >
           {filteredSuggestions.map((word) => (
-            <ListItem key={word} disablePadding>
+            <ListItem key={word} disablePadding className=''>
               <ListItemButton onClick={() => handleSelect(word)}>
                 {word}
               </ListItemButton>
