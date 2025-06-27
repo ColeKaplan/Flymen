@@ -1,15 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MessageCircle, Calendar } from 'lucide-react';
 import { IThread } from '@/types/thread';
-
-interface Message {
-  id: string;
-  user: string;
-  content: string;
-  timestamp: string;
-  isLeft: boolean;
-  avatar: string;
-}
 
 interface ConversationThreadProps {
   threadData: IThread
@@ -20,6 +11,30 @@ const ConversationThread: React.FC<ConversationThreadProps> = ({
   threadData,
   onClick
 }) => {
+
+  const [timeElapsed, setTimeElapsed] = useState('0');
+
+  useEffect(() => {
+    const currentTime = new Date();
+    const msElapsed = currentTime.getTime() - new Date(threadData.last_activity).getTime();
+
+    if (msElapsed < 60000) {
+      setTimeElapsed("now");
+    } else if (msElapsed < 3.6e6) {
+      setTimeElapsed(
+        Math.floor(msElapsed / 60000).toString() + " minutes ago"
+      );
+    } else if (msElapsed < 8.64e7) {
+      setTimeElapsed(
+        Math.floor(msElapsed / 3600000).toString() + " hours ago"
+      );
+    } else {
+      setTimeElapsed(
+        Math.floor(msElapsed / 86400000).toString() + " days ago"
+      );
+    }
+  }, [threadData.last_activity]);
+
   return (
     <div 
       onClick={onClick}
@@ -31,7 +46,7 @@ const ConversationThread: React.FC<ConversationThreadProps> = ({
         </h3>
         <div className="flex items-center text-xs font-pixel text-gray-500">
           <Calendar className="w-3 h-3 mr-1" />
-          {threadData.last_activity}
+          {timeElapsed}
         </div>
       </div>
       
