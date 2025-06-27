@@ -25,7 +25,7 @@ export async function uploadThread(title: string, friend: string, markdownConten
 
     // 2. Look up user2 id by username (friend)
     const { data: friendData, error: friendError } = await supabase
-        .from("usernames")
+        .from("profiles")
         .select("user_id")
         .eq("username", friend)
         .single();
@@ -56,7 +56,7 @@ export async function uploadThread(title: string, friend: string, markdownConten
 
 export async function getUsernames() {
     const supabase = createClient();
-    return await supabase.from("usernames").select("username");
+    return await supabase.from("profiles").select("username");
 }
 
 export async function getThreads() {

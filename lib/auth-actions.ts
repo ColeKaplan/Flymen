@@ -42,8 +42,8 @@ export async function signup(formData: FormData) {
 
     // Check if username is already taken
     const { data: existing, error: checkError } = await supabase
-        .from("usernames")
-        .select("id")
+        .from("profiles")
+        .select("user_id")
         .eq("username", username)
         .maybeSingle();
 
@@ -68,18 +68,6 @@ export async function signup(formData: FormData) {
 
     if (error) {
         return { error: error.message };
-    }
-
-    // Add the new username
-    if (!!data.user) {
-        const { error: insertError } = await supabase
-            .from("usernames")
-            .insert([{ username, user_id: data.user.id }]);
-
-        if (insertError) {
-            console.log(insertError);
-            return { error: "Failed to save username." };
-        }
     }
 
     revalidatePath("/", "layout");
