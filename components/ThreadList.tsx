@@ -38,28 +38,28 @@ const ThreadList: React.FC<ThreadListProps> = ({
   return (
     <div 
       onClick={onClick}
-      className="bg-bg2 rounded border-gray-300 p-4 mb-4 cursor-pointer hover:bg-bg3"
+      className="bg-secondary rounded border-gray-300 p-4 mb-4 cursor-pointer hover:bg-accent1"
     >
       <div className="flex justify-between items-start mb-2">
-        <h3 className="font-pixel font-bold text-lg text-gray-800">
+        <h3 className="font-pixel font-bold text-lg text-white">
           {threadData.title}
         </h3>
-        <div className="flex items-center text-xs font-pixel text-gray-500">
+        <div className="flex items-center text-xs font-pixel text-gray-100">
           <Calendar className="w-3 h-3 mr-1" />
           {timeElapsed}
         </div>
       </div>
       
-      <div className="font-pixel text-sm text-gray-600 mb-2">
+      <div className="font-pixel text-sm text-gray-200 mb-2">
         Between {threadData.username_1} & {threadData.username_2}
       </div>
       
-      <div className="text-sm text-gray-700 mb-3 leading-relaxed">
+      <div className="text-sm text-gray-300 mb-3 leading-relaxed">
         {threadData.excerpt}...
       </div>
       
-      <div className="flex items-center justify-between">
-        <div className="flex items-center text-xs font-pixel text-gray-500">
+      <div className="flex items-center justify-between text-gray-300">
+        <div className="flex items-center text-xs font-pixel">
           <MessageCircle className="w-3 h-3 mr-1" />
           {threadData.conversation_count} letters
         </div>

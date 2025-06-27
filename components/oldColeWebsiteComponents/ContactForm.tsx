@@ -53,7 +53,7 @@ export default function ContactForm() {
                         <textarea name="message" className="block w-full h-20 px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md md:h-32 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" placeholder="Message"></textarea>
                     </div>
 
-                    <button className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">
+                    <button className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-accent1 capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">
                         get in touch
                     </button>
                     { sendFailed && (<div> <h1>Your form did not send properly. Please try again or reach out to me at colegkaplan@gatech.edu</h1></div>)}

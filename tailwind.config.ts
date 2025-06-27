@@ -25,7 +25,14 @@ const config = {
         'textLight': '#5E8994', /* White text */
         'bg1': '#8f7c5d', /* Light background */
         'bg2': '#e5d5ba', /* Lighter background */
-        'bg3': '#cdb996' /* Hover bg color */
+        'bg3': '#cdb996', /* Hover bg color */
+
+        'background': '#DBCFB0',
+        'primary': '#F25C54',
+        'secondary': '#5D737E',
+        'accent2': '#767522',
+        'accent1': '#744253',
+
       },
     },
   },

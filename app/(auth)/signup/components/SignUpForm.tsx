@@ -34,7 +34,7 @@ export function SignUpForm() {
   }
 
   return (
-    <Card className="mx-4 w-[22rem] max-w-sm bg-bg2">
+    <Card className="mx-4 w-[22rem] max-w-sm bg-secondary">
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
@@ -72,7 +72,7 @@ export function SignUpForm() {
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            <Button type="submit" className="w-full bg-bg3 hover:bg-bg1">
+            <Button type="submit" className="w-full bg-bg3 hover:bg-background">
               Create an account
             </Button>
           </div>

@@ -23,14 +23,14 @@ const UserGreetText = ({ className = "" }: UserGreetTextProps) => {
 
     if (user !== null) {
         return (
-            <p className={`text-bg2 ${className}`}>
+            <p className={`text-accent1 ${className}`}>
                 Welcome, {user}
             </p>
         );
     }
 
     return (
-        <p className="text-bg2">
+        <p className="text-accent1">
             User not logged in
         </p>
     );

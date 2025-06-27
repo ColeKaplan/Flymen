@@ -68,7 +68,7 @@ const createThread = () => {
 
     return (
         <div className="flex h-svh justify-center">
-            <Card className="max-w-3xl w-[48rem] bg-bg2 mx-4">
+            <Card className="max-w-3xl w-[48rem] bg-secondary mx-4">
                 <CardHeader className="text-center">
                     <CardTitle className="text-2xl">Create Thread</CardTitle>
                     <CardDescription>
@@ -90,7 +90,7 @@ const createThread = () => {
                     )}
                     <Button
                         onClick={handleSubmit}
-                        className="w-full bg-bg3 hover:bg-bg1 mb-2"
+                        className="w-full bg-bg3 hover:bg-background mb-2"
                         disabled={isPending}
                     >
                         {isPending ? "Creating..." : "Create"}

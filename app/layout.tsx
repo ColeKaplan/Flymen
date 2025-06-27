@@ -22,7 +22,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/PenFavicon4.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/PenFavicon4.png"/>
       </head>
-      <body className={`${inter.className} bg-bg1 overscroll-none  text-[#000000]`}>
+      <body className={`${inter.className} bg-background overscroll-none  text-[#000000]`}>
         {children}
       </body>
     </html>

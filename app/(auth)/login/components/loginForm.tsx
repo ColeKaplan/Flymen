@@ -37,7 +37,7 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="max-w-sm w-[22rem] bg-bg2 mx-4">
+    <Card className="max-w-sm w-[22rem] bg-secondary mx-4">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
@@ -86,7 +86,7 @@ export function LoginForm() {
 
             <Button
               type="submit"
-              className="w-full bg-bg3 hover:bg-bg1 mb-2"
+              className="w-full bg-bg3 hover:bg-background mb-2"
               disabled={isPending}
             >
               {isPending ? "Logging in..." : "Login"}
