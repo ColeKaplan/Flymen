@@ -38,7 +38,7 @@ const ThreadList: React.FC<ThreadListProps> = ({
   return (
     <div 
       onClick={onClick}
-      className="bg-secondary rounded border-gray-300 p-4 mb-4 cursor-pointer hover:bg-accent1"
+      className="bg-accent2 rounded p-4 mb-4 cursor-pointer hover:bg-accent1"
     >
       <div className="flex justify-between items-start mb-2">
         <h3 className="font-pixel font-bold text-lg text-white">

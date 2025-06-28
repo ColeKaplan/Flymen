@@ -21,7 +21,7 @@ const LoginButton = () => {
   if (user) {
     return (
       <Button
-        className="text-white bg-secondary hover:bg-accent1"
+        className="text-white bg-accent2 hover:bg-accent1"
         onClick={() => {
           signout();
           localStorage.clear();
@@ -34,7 +34,7 @@ const LoginButton = () => {
   }
   return (
     <Button
-      className="text-white bg-secondary hover:bg-accent1 w-24"
+      className="text-white bg-accent2 hover:bg-accent1 w-24"
       onClick={() => {
         router.push("/login");
       }}

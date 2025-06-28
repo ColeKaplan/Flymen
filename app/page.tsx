@@ -59,17 +59,17 @@ const Index = () => {
     }
 
     return (
-        <div className="min-h-screen minimal-background">
+        <div className="min-h-screen minimal-background font-['Times_New_Roman']">
             <div className="">
                 <Header />
 
                 <div className="flex-col px-4">
                     <div className="mb-4">
                         {error && <p className="text-red-500 text-sm">{error}</p>}
-                        <h2 className="font-pixel font-bold text-xl text-accent1 mb-2">
+                        <h2 className="font-bold text-xl text-accent1 mb-2">
                             Correspondence
                         </h2>
-                        <div className="font-pixel text-sm text-accent1">
+                        <div className="text-sm text-accent1">
                             Read ongoing letter exchanges between friends • Click any thread to join the conversation
                         </div>
                     </div>

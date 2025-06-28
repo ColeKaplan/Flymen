@@ -2,9 +2,12 @@ import * as React from 'react';
 import { Box, Tabs, Tab, TextField, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import config from '@/tailwind.config';
+import { fontFamily } from '@mui/system';
 
 
-export default function PostMarkdown({ content , setContent }: {content: string; setContent: (value: string) => void }) {
+export default function PostMarkdown({ content, setContent }: { content: string; setContent: (value: string) => void }) {
   const [tab, setTab] = useState(0); // 0 = Text, 1 = Markdown
 
   // Load from localStorage on mount
@@ -22,26 +25,63 @@ export default function PostMarkdown({ content , setContent }: {content: string;
     setTab(newValue);
   };
 
+  const fullConfig = resolveConfig(config);
+  const tabColor = fullConfig.theme.colors.background;
+  const tabSelectedColor = fullConfig.theme.colors.background;
+
   return (
     <Box sx={{ width: '100%' }}>
-      <Tabs value={tab} onChange={handleChange} sx={{ mb: 1 }}>
-        <Tab label="Markdown" />
-        <Tab label="Post Preview" />
+      <Tabs value={tab} onChange={handleChange} sx={{
+        mb: 1,
+        fontFamily: '"Times New Roman", Times, serif',
+        textTransform: 'none',
+        '& .MuiTab-root': {
+          color: tabColor, // sets text color for all Tab labels
+        },
+        '& .Mui-selected': {
+          color: tabSelectedColor, // color for the selected tab label
+        },
+        '& .MuiTabs-indicator': {
+          backgroundColor: tabSelectedColor,  // underline color
+        },
+      }}>
+        <Tab label="Markdown" sx={{
+          fontFamily: '"Times New Roman", Times, serif',
+          textTransform: 'none',
+          fontSize: '1.2rem',
+          '&:focus-visible': {
+            color: tabColor,
+          },
+          '&.Mui-selected': {
+            color: tabSelectedColor,
+          },
+        }} />
+        <Tab label="Post Preview" sx={{
+          fontFamily: '"Times New Roman", Times, serif',
+          textTransform: 'none',
+          fontSize: '1.2rem',
+          '&:focus-visible': {
+            color: tabColor,
+          },
+          '&.Mui-selected': {
+            color: tabSelectedColor,
+          },
+        }} />
       </Tabs>
 
       {tab === 0 ? (
         <TextField
           multiline
           fullWidth
-          minRows={12}
-          maxRows={12}
+          minRows={17}
+          maxRows={17}
           variant="outlined"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           className='bg-[#faf4e3]'
           sx={{
             '& .MuiInputBase-root': {
-              height: '310px',
+              height: '440px',
             },
           }}
         />
@@ -50,12 +90,13 @@ export default function PostMarkdown({ content , setContent }: {content: string;
           variant="outlined"
           sx={{
             p: 2,
-            minHeight: '310px',
-            maxHeight: '310px',
+            minHeight: '440px',
+            maxHeight: '440px',
             backgroundColor: '#faf4e3',
             whiteSpace: 'pre-wrap',
             overflowWrap: 'break-word',
             overflow: 'auto',
+            
           }}
         >
           <ReactMarkdown

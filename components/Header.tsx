@@ -12,14 +12,14 @@ const Header: React.FC = () => {
         </div>
 
         <div id="banner" className="absolute left-1/2 transform -translate-x-1/2 text-center">
-          <div className="inline-block rounded border-gray-300 retro-shadow">
+          <div className="inline-block">
             <h1 className="font-pixel text-2xl font-bold text-accent1 mb-2">
               Flymen
             </h1>
-            <div className="font-pixel text-xs text-accent1 mb-2">
+            <div className="text-lg text-accent1 mb-2">
               A Public Correspondence Archive
             </div>
-            <div className="flex justify-center space-x-3 text-xs font-pixel text-accent1">
+            <div className="flex justify-center space-x-3 text-md text-accent1">
               <span className="">•</span>
               <span>open the curtain on conversations</span>
               <span className="">•</span>

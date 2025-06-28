@@ -41,23 +41,23 @@ const createThread = () => {
         setError(null);
 
         if (titleInput.trim() === "") {
-            setError("Title cannot be empty.");
+            setError("Topic cannot be empty");
             return;
         }
         if (friendInput.trim() === "") {
-            setError("Recipient cannot be empty.");
+            setError("Recipient cannot be empty");
             return;
         }
         if (markdownContent.trim() === "") {
-            setError("Post cannot be empty.");
+            setError("Post cannot be empty");
             return;
         }
 
         startTransition(async () => {
             const result = await uploadThread(titleInput, friendInput, markdownContent);
 
-            if (result?.message) {
-                setError(result.message);
+            if (!!result) {
+                setError(result.error);
             } else {
                 localStorage.removeItem('createThreadTitle');
                 localStorage.removeItem('friendRecipient');
@@ -67,8 +67,8 @@ const createThread = () => {
     }
 
     return (
-        <div className="flex h-svh justify-center">
-            <Card className="max-w-3xl w-[48rem] bg-secondary mx-4">
+        <div className="flex h-svh justify-center font-['Times_New_Roman'] py-4">
+            <Card className="max-w-3xl w-[48rem] bg-accent2 mx-4 text-background border-none">
                 <CardHeader className="text-center">
                     <CardTitle className="text-2xl">Create Thread</CardTitle>
                     <CardDescription>
@@ -83,18 +83,20 @@ const createThread = () => {
                     <PostMarkdown content={markdownContent} setContent={setMarkdownContent} />
                 </CardContent>
                 <CardContent>
-                    {error && (
-                        <div className="text-red-500 text-sm">
-                            {error}
-                        </div>
-                    )}
                     <Button
                         onClick={handleSubmit}
-                        className="w-full bg-bg3 hover:bg-background mb-2"
+                        className="w-full bg-accent1 hover:bg-accent1.5 mb-2 text-background text-lg"
                         disabled={isPending}
                     >
                         {isPending ? "Creating..." : "Create"}
                     </Button>
+
+                    {error && (
+                        <div className="text-white text-lg text-center">
+                            {error}
+                        </div>
+                    )}
+                    
                 </CardContent>
             </Card>
         </div>

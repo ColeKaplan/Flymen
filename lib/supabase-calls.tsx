@@ -16,9 +16,8 @@ export async function uploadThread(title: string, friend: string, markdownConten
         data: { user },
         error: userError,
     } = await supabase.auth.getUser();
-
     if (userError || !user) {
-        return new Error("User not authenticated");
+        return { error: "User not authenticated" }
     }
 
     const currentUserId = user.id;
@@ -31,7 +30,7 @@ export async function uploadThread(title: string, friend: string, markdownConten
         .single();
 
     if (friendError || !friendData) {
-        return new Error("Friend username not found");
+        return { error: "Friend username not found" }
     }
 
     const friendUserId = friendData.user_id;
@@ -46,7 +45,7 @@ export async function uploadThread(title: string, friend: string, markdownConten
     });
 
     if (insertError) {
-        return new Error("Failed to insert thread: " + insertError.message);
+        return { error: insertError.message }
     }
 
     // 4. Revalidate and redirect

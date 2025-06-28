@@ -30,10 +30,12 @@ const config = {
         'background': '#DBCFB0',
         'primary': '#F25C54',
         'secondary': '#5D737E',
-        'accent2': '#767522',
+        'accent2': '#667761',
         'accent1': '#744253',
+        'accent1.5': '#754958',
 
       },
+      
     },
   },
   plugins: [require("tailwindcss-animate")],
