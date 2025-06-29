@@ -34,7 +34,7 @@ const LoginButton = () => {
   }
   return (
     <Button
-      className="text-white bg-accent2 hover:bg-accent1 w-24"
+      className="text-background bg-accent2 hover:bg-accent1 w-24"
       onClick={() => {
         router.push("/login");
       }}
