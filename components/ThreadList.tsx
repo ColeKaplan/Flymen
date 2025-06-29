@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { MessageCircle, Calendar } from 'lucide-react';
 import { IThread } from '@/types/thread';
+import { useRouter } from 'next/navigation';
 
 interface ThreadListProps {
   threadData: IThread
-  onClick: () => void;
 }
 
 const ThreadList: React.FC<ThreadListProps> = ({
   threadData,
-  onClick
 }) => {
 
   const [timeElapsed, setTimeElapsed] = useState('0');
+  const router = useRouter();
+
+  const onClick = () => {
+    router.push(`/threads/${threadData.slug}`)
+  }
 
   useEffect(() => {
     const currentTime = new Date();

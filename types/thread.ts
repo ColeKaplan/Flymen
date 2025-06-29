@@ -9,6 +9,7 @@ export interface IThread {
     last_activity: string;
     conversation_count: number;
     excerpt: string;
+    slug: string
     username_1: string;
     username_2: string;
 }
