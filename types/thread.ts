@@ -1,5 +1,3 @@
-import { IConversation } from "./conversation";
-
 export interface IThread {
     id: string;
     title: string;
@@ -7,7 +5,7 @@ export interface IThread {
     user_2: string;
     created_at: string;
     last_activity: string;
-    conversation_count: number;
+    count: number;
     excerpt: string;
     slug: string
     username_1: string;
