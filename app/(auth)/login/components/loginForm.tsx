@@ -55,6 +55,7 @@ export function LoginForm() {
                 type="username"
                 placeholder="colewawa"
                 required
+                className="text-accent1"
               />
             </div>
             {/* No more email */}
@@ -79,7 +80,7 @@ export function LoginForm() {
                   Forgot your password?
                 </Link> */}
               </div>
-              <Input id="password" name="password" type="password" required />
+              <Input id="password" name="password" type="password" required className="text-accent1"/>
             </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}

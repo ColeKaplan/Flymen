@@ -21,7 +21,7 @@ const LoginButton = () => {
   if (user) {
     return (
       <Button
-        className="text-white bg-accent2 hover:bg-accent1"
+        className="text-background bg-accent2 hover:bg-accent1"
         onClick={() => {
           signout();
           localStorage.clear();

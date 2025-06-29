@@ -52,6 +52,7 @@ export function SignUpForm() {
                 type="username"
                 placeholder="colewawa"
                 required
+                className="text-accent1"
               />
             </div>
             {/* I got rid of the below email class so it would be username based sign ups */}
@@ -67,7 +68,7 @@ export function SignUpForm() {
             </div> */}
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input name="password" id="password" type="password" />
+              <Input name="password" id="password" type="password" className="text-accent1" required />
             </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}

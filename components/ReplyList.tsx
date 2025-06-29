@@ -35,7 +35,7 @@ const ReplyList: React.FC<ReplyListProps> = ({
       </div>
       
       <div className="text-sm mb-3 leading-relaxed">
-        {replyData.content}...
+        {replyData.content}
       </div>
     </div>
   );
