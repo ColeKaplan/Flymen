@@ -21,7 +21,7 @@ const ReplyList: React.FC<ReplyListProps> = ({
 
   return (
     <div 
-      className="bg-accent2 rounded p-4 mb-4 cursor-pointer hover:bg-accent1 text-background"
+      className="bg-accent2 rounded p-4 mb-4 text-background"
     >
       <div className="flex justify-between items-start mb-2">
         <div className="flex items-center text-xs font-pixel">

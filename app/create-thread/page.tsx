@@ -11,7 +11,8 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import ThreadTitle from "./components/threadTitle";
 import PostMarkdown from "./components/postMarkdown";
-import { uploadThread, getUsernames } from "@/lib/supabase-calls";
+import { uploadThread } from "@/lib/supabase-thread-calls";
+import { getUsernames } from "@/lib/supabase-other-calls";
 
 const createThread = () => {
     const [error, setError] = useState<string | null>(null);
@@ -21,6 +22,10 @@ const createThread = () => {
     const [titleInput, setTitleInput] = useState("");
     const [friendInput, setFriendInput] = useState("");
     const [markdownContent, setMarkdownContent] = useState("");
+
+    const saveContentAs = "createThreadMarkdownContent"
+    const saveFriendAs = "createThreadFriend"
+    const saveTitleAs = "createThreadTitle"
 
     useEffect(() => {
         const fetchUsernames = async () => {
@@ -56,12 +61,12 @@ const createThread = () => {
         startTransition(async () => {
             const result = await uploadThread(titleInput, friendInput, markdownContent);
 
-            if (!!result) {
+            if (!!result.error) {
                 setError(result.error);
             } else {
-                localStorage.removeItem('createThreadTitle');
-                localStorage.removeItem('friendRecipient');
-                localStorage.removeItem('markdownContent');
+                localStorage.removeItem(saveTitleAs);
+                localStorage.removeItem(saveFriendAs);
+                localStorage.removeItem(saveContentAs);
             }
         });
     }
@@ -76,11 +81,11 @@ const createThread = () => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-row justify-between">
-                    <ThreadTitle input={titleInput} setInput={setTitleInput} />
-                    <SearchInput suggestions={usernames} input={friendInput} setInput={setFriendInput} />
+                    <ThreadTitle input={titleInput} setInput={setTitleInput} saveTitleAs={saveTitleAs}/>
+                    <SearchInput suggestions={usernames} input={friendInput} setInput={setFriendInput} saveFriendAs={saveFriendAs}/>
                 </CardContent>
                 <CardContent>
-                    <PostMarkdown content={markdownContent} setContent={setMarkdownContent} />
+                    <PostMarkdown content={markdownContent} setContent={setMarkdownContent} saveContentAs={saveContentAs} />
                 </CardContent>
                 <CardContent>
                     <Button
