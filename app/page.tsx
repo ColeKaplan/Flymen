@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ThreadList from '@/components/ThreadList';
 import Header from '@/components/Header';
 import { IThread } from '@/types/thread';
-import { getThreads } from '@/lib/supabase-calls';
+import { getThreads } from '@/lib/supabase-thread-calls';
 
 
 const Index = () => {
@@ -33,14 +33,24 @@ const Index = () => {
                 <Header />
 
                 <div className="flex-col px-4">
-                    <div className="mb-4">
-                        {error && <p className="text-red-500 text-sm">{error}</p>}
-                        <h2 className="font-bold text-xl text-accent1 mb-2">
-                            Correspondence
-                        </h2>
-                        <div className="text-sm text-accent1">
-                            Read ongoing letter exchanges between friends • Click any thread to join the conversation
+                    <div className='flex flex-row justify-between'>
+                        <div className="mb-4">
+                            {error && <p className="text-red-500 text-sm">{error}</p>}
+                            <h2 className="font-bold text-xl text-accent1 mb-2">
+                                Correspondence
+                            </h2>
+                            <div className="text-sm text-accent1 md:hidden">
+                                Read ongoing letter exchanges between friends
+                            </div>
+                            <div className="text-sm text-accent1 md:block hidden">
+                                Read ongoing letter exchanges between friends • Click any thread to join the conversation
+                            </div>
                         </div>
+
+                        <a className="text-accent1 underline hover:text-accent1/60"
+                            href='create-thread'>
+                            New Thread
+                        </a>
                     </div>
 
                     <div className="space-y-4">

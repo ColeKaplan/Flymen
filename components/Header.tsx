@@ -7,7 +7,7 @@ const Header: React.FC = () => {
     <div className='px-4 pt-4'>
       <div className='flex flex-row items-start w-full'>
         <div id="banner" className="text-center items-center w-full">
-          <div className="inline-block">
+          <a className="inline-block" href='/'>
             <h1 className="font-pixel text-2xl font-bold text-accent1 mb-2">
               Flymen
             </h1>
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
               <span>open the curtain on conversations</span>
               <span className="">•</span>
             </div>
-          </div>
+          </a>
         </div>
         <div id="greetingAndLogoutLargeScreen" className='md:flex absolute flex-col items-end right-10 hidden'>
           <UserGreetText className="" />
