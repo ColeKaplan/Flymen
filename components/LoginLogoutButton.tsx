@@ -20,8 +20,8 @@ const LoginButton = () => {
   }, []);
   if (user) {
     return (
-      <Button
-        className="text-background bg-accent2 hover:bg-accent1"
+      <a
+        className="text-accent1 underline hover:text-accent1/60"
         onClick={() => {
           signout();
           localStorage.clear();
@@ -29,18 +29,18 @@ const LoginButton = () => {
         }}
       >
         Log out
-      </Button>
+      </a>
     );
   }
   return (
-    <Button
-      className="text-background bg-accent2 hover:bg-accent1 w-24"
+    <a
+      className="text-accent1 underline hover:text-accent1/60"
       onClick={() => {
         router.push("/login");
       }}
     >
       Login
-    </Button>
+    </a>
   );
 };
 
