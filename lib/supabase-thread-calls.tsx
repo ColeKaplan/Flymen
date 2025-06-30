@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { IThread } from "@/types/thread";
 import slugify from "slugify";
+import { uploadReply } from "./supabase-reply-calls";
 
 
 export async function uploadThread(title: string, friend: string, markdownContent: string) {
@@ -78,14 +79,10 @@ export async function uploadThread(title: string, friend: string, markdownConten
     }
 
     // 5. Insert new Reply
-    const { error: insertReplyError } = await supabase.from("replies").insert({
-        user_id: currentUserId,
-        content: markdownContent,
-        thread_id: thread_id?.id,
-    });
+    const insertReplyError = await uploadReply(thread_id?.id, markdownContent)
 
-    if (insertReplyError) {
-        return { error: insertReplyError.message }
+    if (insertReplyError.error) {
+        return { error: insertReplyError.error }
     }
 
     // 6. Revalidate and redirect
@@ -93,14 +90,11 @@ export async function uploadThread(title: string, friend: string, markdownConten
     redirect("/");
 }
 
-export async function getUsernames() {
-    const supabase = createClient();
-    return await supabase.from("profiles").select("username");
-}
-
 export async function getThreads() {
     const supabase = createClient();
-    const { data, error } = await supabase.from("threads").select("title, user_1, user_2, excerpt, count, id, created_at, last_activity, slug, user_1_profile:profiles!user_1 (username), user_2_profile:profiles!threads_user_2_fkey (username)");
+    const { data, error } = await supabase.from("threads")
+    .select("title, user_1, user_2, excerpt, count, id, created_at, last_activity, slug, user_1_profile:profiles!user_1 (username), user_2_profile:profiles!threads_user_2_fkey (username)")
+    .order("created_at", { ascending: true });
 
 
     return {
@@ -137,21 +131,5 @@ export async function getThread(slug: string): Promise<IThread | null> {
         slug: data.slug,
         username_1: user1Profile.username,
         username_2: user2Profile.username,
-    };
-}
-
-export async function getReplies(thread_id: string) {
-    const supabase = createClient();
-    const { data, error } = await supabase.from("replies")
-    .select("id, created_at, thread_id, content, user_id, user_profile:profiles!user_id (username)")
-    .eq("thread_id", thread_id);
-
-
-    return {
-        data: data?.map(thread => ({
-            ...thread,
-            username: (thread.user_profile as unknown as { username: string }).username ?? "no name",
-        })),
-        error,
     };
 }
