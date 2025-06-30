@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import config from '@/tailwind.config';
 
-export default function ThreadTitle({ input, setInput }: { input: string; setInput: (value: string) => void }) {
+export default function ThreadTitle({ input, setInput, saveTitleAs }: { input: string; setInput: (value: string) => void; saveTitleAs: string }) {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -13,13 +13,13 @@ export default function ThreadTitle({ input, setInput }: { input: string; setInp
 
   // Load from localStorage on mount
   useEffect(() => {
-    const savedTitle = localStorage.getItem('createThreadTitle');
+    const savedTitle = localStorage.getItem(saveTitleAs);
     if (savedTitle) setInput(savedTitle);
   }, []);
 
   // Save to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('createThreadTitle', input);
+    localStorage.setItem(saveTitleAs, input);
   }, [input]);
 
   const fullConfig = resolveConfig(config);

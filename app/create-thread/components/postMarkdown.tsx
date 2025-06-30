@@ -4,21 +4,20 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import config from '@/tailwind.config';
-import { fontFamily } from '@mui/system';
 
 
-export default function PostMarkdown({ content, setContent }: { content: string; setContent: (value: string) => void }) {
+export default function PostMarkdown({ content, setContent, saveContentAs }: { content: string; setContent: (value: string) => void; saveContentAs: string }) {
   const [tab, setTab] = useState(0); // 0 = Text, 1 = Markdown
 
   // Load from localStorage on mount
   useEffect(() => {
-    const savedMarkdown = localStorage.getItem('markdownContent');
+    const savedMarkdown = localStorage.getItem(saveContentAs);
     if (savedMarkdown) setContent(savedMarkdown);
   }, []);
 
   // Save to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('markdownContent', content);
+    localStorage.setItem(saveContentAs, content);
   }, [content]);
 
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {

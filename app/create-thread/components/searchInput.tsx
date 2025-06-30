@@ -6,7 +6,7 @@ import config from '@/tailwind.config';
 
 
 
-export default function SearchInput({ suggestions, input, setInput }: { suggestions: string[], input: string; setInput: (value: string) => void }) {
+export default function SearchInput({ suggestions, input, setInput, saveFriendAs }: { suggestions: string[], input: string; setInput: (value: string) => void; saveFriendAs: string }) {
 
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [isFocused, setIsFocused] = useState(false);
@@ -28,13 +28,13 @@ export default function SearchInput({ suggestions, input, setInput }: { suggesti
 
   // Load from localStorage on mount
   useEffect(() => {
-    const savedFriend = localStorage.getItem('friendRecipient');
+    const savedFriend = localStorage.getItem(saveFriendAs);
     if (savedFriend) setInput(savedFriend);
   }, []);
 
   // Save to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('friendRecipient', input);
+    localStorage.setItem(saveFriendAs, input);
   }, [input]);
 
   const fullConfig = resolveConfig(config);
