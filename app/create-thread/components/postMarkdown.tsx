@@ -72,15 +72,15 @@ export default function PostMarkdown({ content, setContent, saveContentAs }: { c
         <TextField
           multiline
           fullWidth
-          minRows={17}
-          maxRows={17}
+          minRows={14}
+          maxRows={14}
           variant="outlined"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           className='bg-[#faf4e3]'
           sx={{
             '& .MuiInputBase-root': {
-              height: '440px',
+              height: '363px',
             },
           }}
         />
@@ -89,8 +89,8 @@ export default function PostMarkdown({ content, setContent, saveContentAs }: { c
           variant="outlined"
           sx={{
             p: 2,
-            minHeight: '440px',
-            maxHeight: '440px',
+            minHeight: '363px',
+            maxHeight: '363px',
             backgroundColor: '#faf4e3',
             whiteSpace: 'pre-wrap',
             overflowWrap: 'break-word',

@@ -26,7 +26,7 @@ const Header: React.FC = () => {
           <LoginLogoutButton />
         </div>
       </div>
-      <hr className="my-2 border-accent1 mt-8" />
+      <hr className="my-2 border-accent1 mt-6" />
       <div id="greetingAndLogoutSmallScreen" className='flex flex-row justify-between right-10 md:hidden'>
         <UserGreetText className="mb-2" />
         <LoginLogoutButton />

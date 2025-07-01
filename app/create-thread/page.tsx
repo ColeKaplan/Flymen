@@ -13,6 +13,7 @@ import ThreadTitle from "./components/threadTitle";
 import PostMarkdown from "./components/postMarkdown";
 import { uploadThread } from "@/lib/supabase-thread-calls";
 import { getUsernames } from "@/lib/supabase-other-calls";
+import Header from "@/components/Header";
 
 const createThread = () => {
     const [error, setError] = useState<string | null>(null);
@@ -72,15 +73,17 @@ const createThread = () => {
     }
 
     return (
-        <div className="flex h-svh justify-center font-['Times_New_Roman'] py-4">
+        <div className="flex flex-col justify-center font-['Times_New_Roman']">
+            <Header/>
+            <div className="flex justify-center mt-4">
             <Card className="max-w-3xl w-[48rem] bg-accent2 mx-4 text-background border-none">
-                <CardHeader className="text-center">
+                <CardHeader className="text-center my-[-.5rem]">
                     <CardTitle className="text-2xl">Create Thread</CardTitle>
                     <CardDescription>
                         Write the first post in your new thread
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="flex flex-row justify-between">
+                <CardContent className="flex flex-row justify-between mb-[-1rem]">
                     <ThreadTitle input={titleInput} setInput={setTitleInput} saveTitleAs={saveTitleAs}/>
                     <SearchInput suggestions={usernames} input={friendInput} setInput={setFriendInput} saveFriendAs={saveFriendAs}/>
                 </CardContent>
@@ -90,7 +93,7 @@ const createThread = () => {
                 <CardContent>
                     <Button
                         onClick={handleSubmit}
-                        className="w-full bg-accent1 hover:bg-accent1.5 mb-2 text-background text-lg"
+                        className="w-full bg-accent1 hover:bg-accent1.5 my-[-.5rem] text-background text-lg"
                         disabled={isPending}
                     >
                         {isPending ? "Creating..." : "Create"}
@@ -104,6 +107,7 @@ const createThread = () => {
                     
                 </CardContent>
             </Card>
+            </div>
         </div>
     );
 }
