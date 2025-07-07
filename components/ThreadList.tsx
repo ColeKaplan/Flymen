@@ -3,6 +3,7 @@ import { MessageCircle, Calendar } from 'lucide-react';
 import { IThread } from '@/types/thread';
 import { useRouter } from 'next/navigation';
 import getTimeElapsed from '@/utils/timeElapsed';
+import ReactMarkdown from 'react-markdown';
 
 interface ThreadListProps {
   threadData: IThread
@@ -43,7 +44,15 @@ const ThreadList: React.FC<ThreadListProps> = ({
       </div>
 
       <div className="text-sm mb-3 leading-relaxed">
-        {threadData.excerpt}...
+        <ReactMarkdown
+          components={{
+            a: ({ node, ...props }) => {
+              const href = props.href || '';
+              const correctedHref = href.startsWith('http') ? href : `https://${href}`;
+              return <a {...props} href={correctedHref} target="_blank" rel="noopener noreferrer" />;
+            },
+          }}>{threadData.excerpt + "..." || "*Type something in markdown to see what your post will look like*"}
+        </ReactMarkdown>
       </div>
 
       <div className="flex items-center justify-between">
