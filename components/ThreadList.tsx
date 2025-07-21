@@ -20,10 +20,6 @@ const ThreadList: React.FC<ThreadListProps> = ({
     router.push(`/threads/${threadData.slug}`)
   }
 
-  useEffect(() => {
-    setTimeElapsed(getTimeElapsed(threadData.created_at))
-  }, [threadData.last_activity]);
-
   return (
     <div
       onClick={onClick}
@@ -43,7 +39,12 @@ const ThreadList: React.FC<ThreadListProps> = ({
         Between {threadData.username_1} & {threadData.username_2}
       </div>
 
-      <div className="text-sm mb-3 leading-relaxed">
+      <div className="text-sm mb-3 leading-relaxed" style={{
+          overflow: 'hidden',
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+        }}>
         <ReactMarkdown
           components={{
             a: ({ node, ...props }) => {
@@ -51,7 +52,7 @@ const ThreadList: React.FC<ThreadListProps> = ({
               const correctedHref = href.startsWith('http') ? href : `https://${href}`;
               return <a {...props} href={correctedHref} target="_blank" rel="noopener noreferrer" />;
             },
-          }}>{threadData.excerpt + "..." || "*Type something in markdown to see what your post will look like*"}
+          }}>{threadData.excerpt || "*Type something in markdown to see what your post will look like*"}
         </ReactMarkdown>
       </div>
 
