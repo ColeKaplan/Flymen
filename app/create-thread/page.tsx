@@ -75,7 +75,7 @@ const createThread = () => {
     return (
         <div className="flex flex-col justify-center font-['Times_New_Roman']">
             <Header/>
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-4 mb-4">
             <Card className="max-w-3xl w-[48rem] bg-accent2 mx-4 text-background border-none">
                 <CardHeader className="text-center my-[-.5rem]">
                     <CardTitle className="text-2xl">Create Thread</CardTitle>
@@ -100,7 +100,7 @@ const createThread = () => {
                     </Button>
 
                     {error && (
-                        <div className="text-white text-lg text-center">
+                        <div className="pt-4 text-white text-lg text-center">
                             {error}
                         </div>
                     )}
