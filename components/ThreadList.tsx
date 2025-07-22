@@ -16,6 +16,10 @@ const ThreadList: React.FC<ThreadListProps> = ({
   const [timeElapsed, setTimeElapsed] = useState('0');
   const router = useRouter();
 
+  useEffect(() => {
+      setTimeElapsed(getTimeElapsed(threadData.created_at))
+    }, [threadData.created_at]);
+
   const onClick = () => {
     router.push(`/threads/${threadData.slug}`)
   }
@@ -59,7 +63,7 @@ const ThreadList: React.FC<ThreadListProps> = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center text-xs font-pixel">
           <MessageCircle className="w-3 h-3 mr-1" />
-          {threadData.count} letters
+          {threadData.count - 1 == 1 ? "1 reply" : threadData.count - 1 + " replies"}
         </div>
         <button className="retro-button px-3 py-1 font-pixel text-xs rounded">
           Read Thread →
