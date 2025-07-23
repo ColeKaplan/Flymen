@@ -43,10 +43,17 @@ const ReplyList: React.FC<ReplyListProps> = ({
               const correctedHref = href.startsWith('http') ? href : `https://${href}`;
               return <a {...props} href={correctedHref} target="_blank" rel="noopener noreferrer" />;
             },
-          }}>{replyData.content || "*Type something in markdown to see what your post will look like*"}
+          }}>{replyData.content}
         </ReactMarkdown>
         {/* {replyData.content} */}
       </div>
+      {/* <div id="thinking-reaction">
+        <button> */}
+          {/* Implement a sliding bar at bottom of thread where people can rate 0 - 100 how much they like/agree with it
+          Or they can click see results, which shows the result BUT they then cannot vote
+          Figure out UI so after voting u can see the overall graph, but still know what u rated it */}
+        {/* </button>
+      </div> */}
     </div>
   );
 };

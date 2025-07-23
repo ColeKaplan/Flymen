@@ -74,7 +74,7 @@ export default function PostMarkdown({ content, setContent, saveContentAs }: { c
           fullWidth
           minRows={14}
           maxRows={14}
-          variant="outlined"
+          variant="filled"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           className='bg-[#faf4e3]'
@@ -87,6 +87,7 @@ export default function PostMarkdown({ content, setContent, saveContentAs }: { c
       ) : (
         <Paper
           variant="outlined"
+          square
           sx={{
             p: 2,
             minHeight: '363px',

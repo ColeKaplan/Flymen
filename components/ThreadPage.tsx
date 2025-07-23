@@ -11,6 +11,10 @@ import { Button } from "@/components/ui/button";
 import PostMarkdown from "@/app/create-thread/components/postMarkdown";
 import React from "react";
 import { setConfig } from "next/config";
+import { createTheme, Slider, ThemeProvider } from "@mui/material";
+import resolveConfig from "tailwindcss/resolveConfig";
+import config from '@/tailwind.config';
+import theme from '../lib/theme';
 
 
 
@@ -22,11 +26,20 @@ export default function ThreadPage({ thread }: { thread: IThread }) {
     const [replying, setReplying] = useState<Boolean>(false);
     const [replyContent, setReplyContent] = useState<string>("");
     const [isPending, startTransition] = useTransition();
+    const [sliderValue, setSliderValue] = useState(50);
 
+    const fullConfig = resolveConfig(config);
+    const sliderColor = fullConfig.theme.colors.accent1;
     const saveMarkdownAs = "createReplyMarkdown"
 
     const startReplying = () => {
         setReplying(true)
+    }
+
+    const handleSliderChange = (event: any, newValue: number | number[], someVariable: number) => {
+        if (typeof newValue === 'number') {
+            setSliderValue(newValue);
+        };
     }
 
     useEffect(() => {
@@ -137,6 +150,21 @@ export default function ThreadPage({ thread }: { thread: IThread }) {
                             )}
                         </div></React.Fragment>)
                     )}
+            </div>
+            <div className=" flex flex-row items-center justify-center">
+                <div className="w-1/3">
+                    <ThemeProvider theme={theme}>
+                        <Slider
+                            defaultValue={50}
+                            value={sliderValue}
+                            onChange={handleSliderChange}
+                            aria-label="Default"
+                            valueLabelDisplay="auto"
+                            color={'info'}
+                        //'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+                        />
+                    </ThemeProvider>
+                </div>
             </div>
         </div >
     );
