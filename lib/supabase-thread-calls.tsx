@@ -79,7 +79,7 @@ export async function uploadThread(title: string, friend: string, markdownConten
     }
 
     // 5. Insert new Reply
-    const insertReplyError = await uploadReply(thread_id?.id, markdownContent)
+    const insertReplyError = await uploadReply(thread_id?.id, markdownContent, 0)
 
     if (insertReplyError.error) {
         return { error: insertReplyError.error }
@@ -94,7 +94,7 @@ export async function getThreads() {
     const supabase = createClient();
     const { data, error } = await supabase.from("threads")
     .select("title, user_1, user_2, excerpt, count, id, created_at, last_activity, slug, user_1_profile:profiles!user_1 (username), user_2_profile:profiles!threads_user_2_fkey (username)")
-    .order("created_at", { ascending: true });
+    .order("last_activity", { ascending: false });
 
 
     return {

@@ -21,7 +21,7 @@ export async function getReplies(thread_id: string) {
     };
 }
 
-export async function uploadReply(thread_id: string, content: string) {
+export async function uploadReply(thread_id: string, content: string, oldCount: number) {
     const supabase = createClient();
 
      // Get current user id
@@ -44,6 +44,17 @@ export async function uploadReply(thread_id: string, content: string) {
 
     if (insertReplyError) {
         return { error: insertReplyError.message }
+    }
+
+    // Update thread last activity
+    const { error: updateThreadError } = await supabase.from("threads")
+    .update({
+        last_activity: new Date().toISOString(),
+        count: oldCount + 1,
+    })
+    .eq("id", thread_id);
+    if (updateThreadError) {
+        return { error: updateThreadError.message }
     }
 
     return { error: null };

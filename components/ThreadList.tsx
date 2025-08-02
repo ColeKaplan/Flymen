@@ -17,8 +17,11 @@ const ThreadList: React.FC<ThreadListProps> = ({
   const router = useRouter();
 
   useEffect(() => {
-      setTimeElapsed(getTimeElapsed(threadData.created_at))
-    }, [threadData.created_at]);
+      setTimeElapsed(getTimeElapsed(threadData.last_activity))
+      console.log("Thread last activity:", threadData.last_activity);
+      console.log("Thread created at:", threadData.created_at);
+
+    }, [threadData.last_activity]);
 
   const onClick = () => {
     router.push(`/threads/${threadData.slug}`)

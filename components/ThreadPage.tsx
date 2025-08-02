@@ -86,7 +86,7 @@ export default function ThreadPage({ thread }: { thread: IThread }) {
         }
 
         startTransition(async () => {
-            const result = await uploadReply(thread.id, replyContent);
+            const result = await uploadReply(thread.id, replyContent, thread.count);
 
 
             if (result.error) {
@@ -151,7 +151,9 @@ export default function ThreadPage({ thread }: { thread: IThread }) {
                         </div></React.Fragment>)
                     )}
             </div>
-            <div className=" flex flex-row items-center justify-center">
+            
+            {/* This is the rating bar slider at the bottom */}
+            {/* <div className=" flex flex-row items-center justify-center">
                 <div className="w-1/3">
                     <ThemeProvider theme={theme}>
                         <Slider
@@ -165,7 +167,7 @@ export default function ThreadPage({ thread }: { thread: IThread }) {
                         />
                     </ThemeProvider>
                 </div>
-            </div>
+            </div> */}
         </div >
     );
 }
