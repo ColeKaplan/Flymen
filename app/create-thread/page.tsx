@@ -1,19 +1,12 @@
 "use client"
 import React, { useEffect, useState, useTransition } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import SearchInput from "./components/searchInput"
-import { createClient } from "@/utils/supabase/client";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import Link from "next/link";
 import ThreadTitle from "./components/threadTitle";
 import PostMarkdown from "./components/postMarkdown";
 import { uploadThread } from "@/lib/supabase-thread-calls";
 import { getUsernames } from "@/lib/supabase-other-calls";
-import Header from "@/components/Header";
 
 const createThread = () => {
     const [error, setError] = useState<string | null>(null);
@@ -74,7 +67,6 @@ const createThread = () => {
 
     return (
         <div className="flex flex-col justify-center font-['Times_New_Roman']">
-            <Header/>
             <div className="flex justify-center mt-4 mb-4">
             <Card className="max-w-3xl w-[48rem] bg-accent2 mx-4 text-background border-none">
                 <CardHeader className="text-center my-[-.5rem]">

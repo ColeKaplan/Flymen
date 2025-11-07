@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import ThreadList from '@/components/ThreadList';
-import Header from '@/components/Header';
 import { IThread } from '@/types/thread';
 import { getThreads } from '@/lib/supabase-thread-calls';
 
@@ -30,7 +29,6 @@ const Index = () => {
     return (
         <div className="min-h-screen minimal-background font-['Times_New_Roman']">
             <div className="">
-                <Header />
 
                 <div className="flex-col px-4">
                     <div className='flex flex-row justify-between'>

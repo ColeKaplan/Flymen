@@ -1,7 +1,6 @@
 "use client"
 
 import { IThread } from "@/types/thread";
-import Header from "./Header";
 import { useEffect, useState, useTransition } from "react";
 import { getReplies, uploadReply } from "@/lib/supabase-reply-calls";
 import { IReply } from "@/types/reply";
@@ -101,7 +100,6 @@ export default function ThreadPage({ thread }: { thread: IThread }) {
 
     return (
         <div className="text-accent1 font-['Times_New_Roman']">
-            <Header />
             <div className="px-4">
                 <div className="">
                     {error && <p className="text-red-500 text-sm">{error}</p>}

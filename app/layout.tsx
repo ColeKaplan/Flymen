@@ -23,6 +23,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/PenFavicon-16x16.png"/>
       </head>
       <body className={`${inter.className} bg-background overscroll-none  text-[#000000]`}>
+        <Header />
         {children}
       </body>
     </html>
