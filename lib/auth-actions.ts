@@ -28,8 +28,7 @@ export async function login(formData: FormData) {
         return { error: error.message };
     }
 
-    revalidatePath("/", "layout");
-    redirect("/");
+    return { data: data.user?.user_metadata?.display_name };
 }
 
 export async function signup(formData: FormData) {
@@ -91,7 +90,6 @@ export async function signout() {
         console.log(error);
         redirect("/error");
     }
-
     redirect("/logout");
 }
 

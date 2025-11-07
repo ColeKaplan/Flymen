@@ -1,11 +1,11 @@
 import React from "react";
 import { LoginForm } from "./components/loginForm";
 
-const SignUpPage = () => {
+const LogInPage = () => {
     return (
         <div className="flex h-svh items-center justify-center">
             <LoginForm />
         </div>
     );
 }   
-export default SignUpPage;
+export default LogInPage;

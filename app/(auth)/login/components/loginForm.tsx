@@ -15,10 +15,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/lib/auth-actions";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+  const supabase = createClient();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); // prevent normal form submission
@@ -31,8 +35,24 @@ export function LoginForm() {
 
       if (result?.error) {
         setError(result.error);
+        return;
       }
-      // If no error, login() will redirect internally
+
+      // Refresh the client-side session to ensure auth state is updated
+      await supabase.auth.getSession();
+      
+      const displayName = result.data; // or data.user.user_metadata?.display_name
+      localStorage.setItem("displayName", displayName);
+      
+      // Dispatch custom event to notify components of login
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("auth-state-changed", { 
+          detail: { displayName } 
+        }));
+      }
+      
+      router.refresh(); // Refresh to update server components and auth state
+      router.push("/");
     });
   }
 
@@ -80,7 +100,7 @@ export function LoginForm() {
                   Forgot your password?
                 </Link> */}
               </div>
-              <Input id="password" name="password" type="password" required className="text-accent1"/>
+              <Input id="password" name="password" type="password" required className="text-accent1" />
             </div>
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
