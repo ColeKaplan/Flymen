@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Header: React.FC = () => {
   return (
-    <div className='px-4 pt-4'>
+    <div className="px-4 pt-4 font-['Times_New_Roman']">
       <div className='flex flex-row items-start w-full'>
         <div id="banner" className="text-center items-center w-full">
           <Link className="inline-block" href='/'>
