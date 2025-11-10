@@ -22,9 +22,11 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/PenFavicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/PenFavicon-16x16.png"/>
       </head>
-      <body className={`${inter.className} bg-background overscroll-none  text-[#000000]`}>
+      <body className={`${inter.className} bg-background overscroll-none text-[#000000] flex flex-col h-screen`}>
         <Header />
-        {children}
+        <main className="flex-1 overflow-auto">
+          {children}
+        </main>
       </body>
     </html>
   );

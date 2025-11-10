@@ -53,15 +53,21 @@ const createThread = () => {
         }
 
         startTransition(async () => {
+            // Clear localStorage before upload - if it succeeds, we redirect anyway
+            // If it fails, we will resave these to localStorage
+            localStorage.removeItem(saveTitleAs);
+            localStorage.removeItem(saveFriendAs);
+            localStorage.removeItem(saveContentAs);
+            
             const result = await uploadThread(titleInput, friendInput, markdownContent);
 
-            if (!!result.error) {
+            if (!!result?.error) {
                 setError(result.error);
-            } else {
-                localStorage.removeItem(saveTitleAs);
-                localStorage.removeItem(saveFriendAs);
-                localStorage.removeItem(saveContentAs);
+                localStorage.setItem(saveTitleAs, titleInput);
+                localStorage.setItem(saveFriendAs, friendInput);
+                localStorage.setItem(saveContentAs, markdownContent);
             }
+            // If no error, redirect happens in uploadThread, so we don't need to do anything here
         });
     }
 

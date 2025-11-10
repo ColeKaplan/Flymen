@@ -27,7 +27,7 @@ const Index = () => {
     }, []);
 
     return (
-        <div className="min-h-screen minimal-background font-['Times_New_Roman']">
+        <div className="min-h-full minimal-background font-['Times_New_Roman']">
             <div className="">
 
                 <div className="flex-col px-4">

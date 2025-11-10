@@ -35,7 +35,7 @@ const ReplyList: React.FC<ReplyListProps> = ({
         {replyData.username}
       </div>
 
-      <div className="text-sm mb-3 leading-relaxed">
+      <div className="text-sm mb-3 leading-relaxed whitespace-pre-wrap break-words">
         <ReactMarkdown
           components={{
             a: ({ node, ...props }) => {
