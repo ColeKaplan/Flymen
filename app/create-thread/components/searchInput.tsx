@@ -97,7 +97,7 @@ export default function SearchInput({ suggestions, input, setInput, saveFriendAs
         >
           {filteredSuggestions.map((word) => (
             <ListItem key={word} disablePadding className=''>
-              <ListItemButton onClick={() => handleSelect(word)}>
+              <ListItemButton onMouseDown={() => handleSelect(word)}>
                 {word}
               </ListItemButton>
             </ListItem>
