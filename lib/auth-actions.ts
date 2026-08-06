@@ -21,6 +21,7 @@ export async function login(formData: FormData) {
         return { error: error.message };
     }
 
+    revalidatePath("/", "layout");
     return { data: data.user?.user_metadata?.display_name };
 }
 
@@ -85,7 +86,18 @@ export async function signout() {
         return { error: error.message };
     }
     
+    revalidatePath("/", "layout");
     return { data: "Successfully signed out." };
+}
+
+export async function getUser() {
+    const supabase = createClient();
+    return await supabase.auth.getUser();
+}
+
+export async function getSession() {
+    const supabase = createClient();
+    return await supabase.auth.getSession();
 }
 
 export async function signInWithGoogle() {

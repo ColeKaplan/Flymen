@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { signout } from "@/lib/auth-actions";
 import Link from "next/link";
+import { getUser } from "@/lib/auth-actions";
 
 const LoginButton = () => {
   const [user, setUser] = useState<any>(null);
@@ -14,7 +15,7 @@ const LoginButton = () => {
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault(); // Prevent immediate navigation
 
-    const { data, error } = await signout();
+    const { error } = await signout();
     if (error) {
       console.error(error);
       return;
@@ -34,32 +35,11 @@ const LoginButton = () => {
     const fetchUser = async () => {
       const {
         data: { user },
-      } = await supabase.auth.getUser();
+      } = await getUser();
       setUser(user);
     };
     fetchUser();
 
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    // Listen for custom auth state change events (for login)
-    const handleAuthStateChanged = () => {
-      // Re-fetch user to ensure we have the latest data
-      fetchUser();
-    };
-
-    if (typeof window !== "undefined") {
-      window.addEventListener("auth-state-changed", handleAuthStateChanged as EventListener);
-    }
-
-    return () => {
-      subscription.unsubscribe();
-      if (typeof window !== "undefined") {
-        window.removeEventListener("auth-state-changed", handleAuthStateChanged as EventListener);
-      }
-    };
   }, [supabase]);
 
   if (user) {

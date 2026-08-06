@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { login } from "@/lib/auth-actions";
+import { getSession, login } from "@/lib/auth-actions";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
@@ -39,19 +39,11 @@ export function LoginForm() {
       }
 
       // Refresh the client-side session to ensure auth state is updated
-      await supabase.auth.getSession();
+      await getSession();
       
       const displayName = result.data; // or data.user.user_metadata?.display_name
       localStorage.setItem("displayName", displayName);
-      
-      // Dispatch custom event to notify components of login
-      if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("auth-state-changed", { 
-          detail: { displayName } 
-        }));
-      }
-      
-      router.refresh(); // Refresh to update server components and auth state
+
       router.push("/");
     });
   }

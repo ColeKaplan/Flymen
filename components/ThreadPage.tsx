@@ -14,6 +14,7 @@ import { createTheme, Slider, ThemeProvider } from "@mui/material";
 import resolveConfig from "tailwindcss/resolveConfig";
 import config from '@/tailwind.config';
 import theme from '../lib/theme';
+import { getUser } from "@/lib/auth-actions";
 
 
 
@@ -66,7 +67,7 @@ export default function ThreadPage({ thread }: { thread: IThread }) {
             const {
                 data: { user },
                 error,
-            } = await supabase.auth.getUser();
+            } = await getUser();
 
             if (user && (user.id === thread.user_1 || user.id === thread.user_2)) {
                 setIsAuthorized(true);
