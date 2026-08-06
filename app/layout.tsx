@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header"
+import { getUser } from "@/lib/auth-actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,11 +11,13 @@ export const metadata: Metadata = {
   description: "Discussions between users play out in a variety of topics",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const { data: { user } } = await getUser();
 
   return (
     <html lang="en" className="m-0 p-0">
@@ -23,7 +26,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/PenFavicon-16x16.png"/>
       </head>
       <body className={`${inter.className} bg-background overscroll-none text-[#000000] flex flex-col h-screen`}>
-        <Header />
+        <Header user={user} />
         <main className="flex-1 overflow-auto">
           {children}
         </main>
