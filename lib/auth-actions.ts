@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
+import slugify from "slugify";
 
 export async function login(formData: FormData) {
     const supabase = createClient();
@@ -11,16 +12,8 @@ export async function login(formData: FormData) {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string
 
-    const response = await supabase.functions.invoke("get-fake-email", {
-        body: { username },
-    });
-
-    if (response.error) {
-        return { error: "Incorrect username or password" };
-    }
-
     const { data, error } = await supabase.auth.signInWithPassword({
-        email: response.data.email,
+        email: `${username}@example.com`,
         password,
     });
 
@@ -36,14 +29,15 @@ export async function signup(formData: FormData) {
 
     // Ideally should validate these inputs instead of type-casting
     const username = formData.get("username") as string;
-    const email = `${randomString(10)}@example.com`;
+    const email = `${username}@example.com`;
     const password = formData.get("password") as string
+    const userSlug = slugify(username, { lower: true, strict: true })
 
     // Check if username is already taken
     const { data: existing, error: checkError } = await supabase
         .from("profiles")
         .select("user_id")
-        .eq("username", username)
+        .eq("slug", userSlug)
         .maybeSingle();
 
     if (checkError) {
@@ -73,6 +67,7 @@ export async function signup(formData: FormData) {
     redirect("/");
 }
 
+// Not used anymore, was for random email generation
 function randomString(length: number) {
     const chars =
         "0123456789abcdefghijklmnopqrstuvwxyz";
