@@ -14,7 +14,7 @@ const LoginButton = () => {
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault(); // Prevent immediate navigation
 
-    const { error } = await supabase.auth.signOut();
+    const { data, error } = await signout();
     if (error) {
       console.error(error);
       return;

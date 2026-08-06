@@ -82,10 +82,10 @@ export async function signout() {
     const supabase = createClient();
     const { error } = await supabase.auth.signOut();
     if (error) {
-        console.log(error);
-        redirect("/error");
+        return { error: error.message };
     }
-    redirect("/logout");
+    
+    return { data: "Successfully signed out." };
 }
 
 export async function signInWithGoogle() {
