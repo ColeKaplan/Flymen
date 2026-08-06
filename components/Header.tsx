@@ -2,8 +2,9 @@ import React from 'react';
 import UserGreetText from './UserGreetText';
 import LoginLogoutButton from './LoginLogoutButton';
 import Link from 'next/link';
+import { User } from '@supabase/supabase-js';
 
-const Header: React.FC = () => {
+export default function Header({ user }: { user: User | null }) {
   return (
     <div className="px-4 pt-4 font-['Times_New_Roman']">
       <div className='flex flex-row items-start w-full'>
@@ -23,17 +24,15 @@ const Header: React.FC = () => {
           </Link>
         </div>
         <div id="greetingAndLogoutLargeScreen" className='md:flex absolute flex-col items-end right-10 hidden'>
-          <UserGreetText className="" />
-          <LoginLogoutButton />
+          <UserGreetText user={user} className="" />
+          <LoginLogoutButton user={user}/>
         </div>
       </div>
       <hr className="my-2 border-accent1 mt-6" />
       <div id="greetingAndLogoutSmallScreen" className='flex flex-row justify-between right-10 md:hidden'>
         <UserGreetText className="mb-2" />
-        <LoginLogoutButton />
+        <LoginLogoutButton user={user}/>
       </div>
     </div>
   );
 };
-
-export default Header;

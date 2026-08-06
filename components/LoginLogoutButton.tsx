@@ -6,9 +6,9 @@ import { createClient } from "@/utils/supabase/client";
 import { signout } from "@/lib/auth-actions";
 import Link from "next/link";
 import { getUser } from "@/lib/auth-actions";
+import { User } from "@supabase/supabase-js";
 
-const LoginButton = () => {
-  const [user, setUser] = useState<any>(null);
+const LoginButton = ({ user }: { user: User | null }) => {
   const supabase = useMemo(() => createClient(), []);
   const router = useRouter();
 
@@ -24,24 +24,9 @@ const LoginButton = () => {
     // Clear cached user
     localStorage.removeItem("displayName");
     
-    // Navigate to home page after logout
+    // Refresh home page after logout
     router.refresh();
-    router.push("/");
   };
-  
-
-  // This makes sure the button says login or logout based on the user's auth state
-  useEffect(() => {
-    // Get initial user
-    const fetchUser = async () => {
-      const {
-        data: { user },
-      } = await getUser();
-      setUser(user);
-    };
-    fetchUser();
-
-  }, [supabase]);
 
   if (user) {
     return (
