@@ -25,6 +25,7 @@ const LoginButton = () => {
     localStorage.removeItem("displayName");
     
     // Navigate to home page after logout
+    router.refresh();
     router.push("/");
   };
   
